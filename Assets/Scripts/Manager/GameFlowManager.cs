@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameFlowManager : MonoBehaviour
@@ -15,6 +16,8 @@ public class GameFlowManager : MonoBehaviour
     public int winProgress { get; private set; }
     public int loseProgress { get; private set; }
     public bool isGameEnded { get; private set; }
+
+    private readonly HashSet<int> lostSheepIds = new HashSet<int>();
 
     public event Action<int> OnSheepReachedEndChanged;
     public event Action<int> OnRedLightXChanged;
@@ -51,9 +54,24 @@ public class GameFlowManager : MonoBehaviour
 
     public void RegisterHazardLoss(string reason)
     {
+        if (isGameEnded)
+            return;
+
         loseProgress = Mathf.Clamp(loseProgress + 1, 0, maxRedLightXMarks);
         OnLoseProgressChanged?.Invoke(loseProgress);
-        EndGame(reason);
+
+        if (loseProgress >= maxRedLightXMarks)
+        {
+            EndGame(reason);
+        }
+    }
+
+    public void RegisterSheepLost(GameObject sheep, string reason)
+    {
+        if (sheep == null || !lostSheepIds.Add(sheep.GetInstanceID()))
+            return;
+
+        RegisterHazardLoss(reason);
     }
 
     public void RegisterRedLightDelay()
@@ -62,13 +80,23 @@ public class GameFlowManager : MonoBehaviour
             return;
 
         redLightXMarks++;
-        loseProgress = Mathf.Clamp(redLightXMarks, 0, maxRedLightXMarks);
         OnRedLightXChanged?.Invoke(redLightXMarks);
+        RegisterPenalty("Đèn đỏ quá lâu");
+    }
+
+    public void RegisterSheepStandingPenalty()
+    {
+        RegisterPenalty("Cừu đứng quá lâu");
+    }
+
+    private void RegisterPenalty(string reason)
+    {
+        loseProgress = Mathf.Clamp(loseProgress + 1, 0, maxRedLightXMarks);
         OnLoseProgressChanged?.Invoke(loseProgress);
 
-        if (redLightXMarks >= maxRedLightXMarks)
+        if (loseProgress >= maxRedLightXMarks)
         {
-            EndGame("Đèn đỏ quá lâu");
+            EndGame(reason);
         }
     }
 

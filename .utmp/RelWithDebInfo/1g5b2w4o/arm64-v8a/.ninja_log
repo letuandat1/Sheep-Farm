@@ -1,0 +1,10 @@
+# ninja log v5
+65	7977	8114994392808084	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	129ae4b375ff4821
+53	8040	8114994392856892	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	10ca412ab2017cbf
+1	8051	8114994393796384	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	c3d1f5857e3172fe
+91	8105	8114994394480564	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	c5b516c635e19002
+18	8517	8114994398730242	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	e84dab85d9f59d09
+78	8919	8114994402856580	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	42ad23786d8f4dee
+42	9303	8114994406776638	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	73df8ebe69d4a7bb
+33	10566	8114994419154966	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e56da10dbd1a118
+10568	10945	8114994423283834	C:/Game Unity/Sheep Farm/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1g5b2w4o/obj/arm64-v8a/libgame.so	51186634848a7416

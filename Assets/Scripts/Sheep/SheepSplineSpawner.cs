@@ -45,11 +45,15 @@ public class SheepSplineSpawner : MonoBehaviour
         Vector3 spawnPosition = spawnPoint != null ? spawnPoint.position : transform.position;
         GameObject sheep = Instantiate(sheepPrefab, spawnPosition, Quaternion.identity);
 
-        SheepSplineMover mover = sheep.GetComponent<SheepSplineMover>();
-        if (mover != null)
+        SheepSplineMover mover = sheep.GetComponentInChildren<SheepSplineMover>();
+        if (mover == null)
         {
-            mover.spline = levelSpline;
-            mover.startProgress = 0f;
+            Debug.LogWarning("Sheep prefab needs a SheepSplineMover component.", sheep);
+            Destroy(sheep);
+            return;
         }
+
+        mover.spline = levelSpline;
+        mover.startProgress = 0f;
     }
 }

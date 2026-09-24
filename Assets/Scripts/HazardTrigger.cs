@@ -12,11 +12,14 @@ public class HazardTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (GameFlowManager.Instance == null || GameFlowManager.Instance.isGameEnded)
-            return;
-
-        if (other.GetComponentInParent<Sheep>() != null || other.GetComponentInParent<SheepSplineMover>() != null)
+        if (other.GetComponentInParent<SheepSplineMover>() != null)
         {
+            if (GetComponentInParent<EnemyStraightMover>() != null)
+                return;
+
+            if (GameFlowManager.Instance == null || GameFlowManager.Instance.isGameEnded)
+                return;
+
             string reason = hazardType == HazardType.Cow ? "Bò cán" : "Sói mang đi mất";
             GameFlowManager.Instance.RegisterHazardLoss(reason);
         }
