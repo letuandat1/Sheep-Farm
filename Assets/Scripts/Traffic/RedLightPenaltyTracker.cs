@@ -79,7 +79,7 @@ public class RedLightPenaltyTracker : MonoBehaviour
                 while (state.penaltyTimer >= xInterval)
                 {
                     state.penaltyTimer -= xInterval;
-                    GameFlowManager.Instance.RegisterSheepStandingPenalty();
+                    GameFlowManager.Instance.RegisterSheepStandingPenalty(sheep.gameObject);
                     sheep.MarkAngry();
                     state.penaltyReached = true;
                 }

@@ -20,11 +20,13 @@ public class SheepSplineMover : MonoBehaviour
     public float stopDistance = 0.7f;
 
     [Header("Queue Follow")]
-    public float safeDistance = 0.3f;
+    public float safeDistance = 1.5f;
     public float followDistanceFactor = 1.5f;
     public float followDistanceFactor2 = 2.2f;
 
     public bool IsAngry { get; private set; }
+    public bool IsBeingCarried { get; private set; }
+    public float Progress => progress;
 
     private float totalLength;
     private float progress;
@@ -54,6 +56,9 @@ public class SheepSplineMover : MonoBehaviour
 
     private void Update()
     {
+        if (IsBeingCarried)
+            return;
+
         if (spline == null)
             return;
 
@@ -202,6 +207,50 @@ public class SheepSplineMover : MonoBehaviour
         lostToEnemy = true;
         GameFlowManager.Instance?.RegisterSheepLost(gameObject, "Cừu bị enemy bắt");
         Destroy(gameObject);
+    }
+
+    public bool TryStartBeingCarried(Transform carrier)
+    {
+        if (IsBeingCarried || lostToEnemy || carrier == null)
+            return false;
+
+        IsBeingCarried = true;
+        lostToEnemy = true;
+        enabled = false;
+        return true;
+    }
+
+    public void ReleaseFromCarrier(Vector3 releasePosition)
+    {
+        if (!IsBeingCarried)
+            return;
+
+        IsBeingCarried = false;
+        lostToEnemy = false;
+
+        if (spline != null && totalLength > 0f)
+        {
+            float closestT = 0f;
+            float closestDistanceSq = float.MaxValue;
+            int sampleCount = 200;
+
+            for (int i = 0; i <= sampleCount; i++)
+            {
+                float t = i / (float)sampleCount;
+                Vector3 samplePosition = spline.EvaluatePosition(t);
+                float distanceSq = (samplePosition - releasePosition).sqrMagnitude;
+                if (distanceSq < closestDistanceSq)
+                {
+                    closestDistanceSq = distanceSq;
+                    closestT = t;
+                }
+            }
+
+            progress = closestT * totalLength;
+        }
+
+        transform.position = releasePosition;
+        enabled = true;
     }
 
     public void MarkAngry()

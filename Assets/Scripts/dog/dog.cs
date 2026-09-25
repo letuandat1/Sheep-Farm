@@ -16,6 +16,14 @@ public class dog : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if (FindAnyObjectByType<FarmerController>() != null)
+            return;
+
+        ToggleMovement();
+    }
+
+    public void ToggleMovement()
+    {
         allowSheepToMove = !allowSheepToMove;
         SheepTrafficState.SetMovementAllowed(allowSheepToMove);
     }

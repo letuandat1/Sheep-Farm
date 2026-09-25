@@ -18,6 +18,7 @@ public class GameFlowManager : MonoBehaviour
     public bool isGameEnded { get; private set; }
 
     private readonly HashSet<int> lostSheepIds = new HashSet<int>();
+    private readonly HashSet<int> penalizedSheepIds = new HashSet<int>();
 
     public event Action<int> OnSheepReachedEndChanged;
     public event Action<int> OnRedLightXChanged;
@@ -71,6 +72,9 @@ public class GameFlowManager : MonoBehaviour
         if (sheep == null || !lostSheepIds.Add(sheep.GetInstanceID()))
             return;
 
+        if (penalizedSheepIds.Contains(sheep.GetInstanceID()))
+            return;
+
         RegisterHazardLoss(reason);
     }
 
@@ -84,8 +88,11 @@ public class GameFlowManager : MonoBehaviour
         RegisterPenalty("Đèn đỏ quá lâu");
     }
 
-    public void RegisterSheepStandingPenalty()
+    public void RegisterSheepStandingPenalty(GameObject sheep)
     {
+        if (sheep == null || !penalizedSheepIds.Add(sheep.GetInstanceID()))
+            return;
+
         RegisterPenalty("Cừu đứng quá lâu");
     }
 

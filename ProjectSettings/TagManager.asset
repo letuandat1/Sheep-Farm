@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - SheepEnd
+  - Ground
+  - Terrain
   layers:
   - Default
   - TransparentFX

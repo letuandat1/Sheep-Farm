@@ -11,6 +11,7 @@ public class SheepSplineSpawner : MonoBehaviour
     [Header("Spawn Timing")]
     public float spawnInterval = 5f;
     public float spawnOffset = 0f;
+    public float minimumSpawnGap = 1.5f;
 
     private float nextSpawnTime;
 
@@ -40,6 +41,16 @@ public class SheepSplineSpawner : MonoBehaviour
         {
             Debug.LogWarning("Level spline is missing.");
             return;
+        }
+
+        SheepSplineMover[] sheepOnPath = FindObjectsByType<SheepSplineMover>(FindObjectsInactive.Exclude);
+        foreach (SheepSplineMover existingSheep in sheepOnPath)
+        {
+            if (existingSheep == null || !existingSheep.isActiveAndEnabled || existingSheep.IsBeingCarried)
+                continue;
+
+            if (existingSheep.Progress < minimumSpawnGap)
+                return;
         }
 
         Vector3 spawnPosition = spawnPoint != null ? spawnPoint.position : transform.position;

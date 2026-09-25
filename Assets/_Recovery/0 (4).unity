@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 171184490}
   m_Layer: 0
   m_Name: soi spawn
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -145,8 +145,8 @@ Transform:
   m_GameObject: {fileID: 171184488}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14503, y: -0.0052043, z: -0.22602}
-  m_LocalScale: {x: 1.1131, y: 1.1131, z: 1.1131}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 250368530}
@@ -171,10 +171,9 @@ MonoBehaviour:
   firstSpawnDelay: 5
   spawnInterval: 5
   maxActiveWolves: 1
-  farmer: {fileID: 1642718780}
+  farmer: {fileID: 0}
   minSpawnDistanceFromFarmer: 5
   maxSpawnPositionAttempts: 20
-  spawnEdgeInset: 0.05
   moveSpeed: 1.2
   catchDistance: 1.2
   carrySpeed: 2.5
@@ -702,13 +701,35 @@ GameObject:
   - component: {fileID: 467025183}
   - component: {fileID: 467025182}
   - component: {fileID: 467025181}
+  - component: {fileID: 467025180}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &467025180
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467025179}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &467025181
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -776,7 +797,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0.2, y: -0.668, z: 5.0499997}
-  m_LocalScale: {x: 1.5, y: 1, z: 15.56893}
+  m_LocalScale: {x: 1, y: 1, z: 15.56893}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -793,13 +814,35 @@ GameObject:
   - component: {fileID: 550823330}
   - component: {fileID: 550823329}
   - component: {fileID: 550823328}
+  - component: {fileID: 550823327}
   m_Layer: 0
   m_Name: gun
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &550823327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550823326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f925e934b986cae4381189c040a59ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarmerController
+  moveSpeed: 3
+  movementPlaneY: 0
+  movementCamera: {fileID: 0}
+  gun: {fileID: 0}
+  shootOrigin: {fileID: 0}
+  gunRange: 4
+  shootInterval: 1
+  wolfFleeDuration: 3
+  wolfFleeSpeed: 3.5
 --- !u!65 &550823328
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1386,13 +1429,14 @@ GameObject:
   - component: {fileID: 664428413}
   - component: {fileID: 664428412}
   - component: {fileID: 664428411}
+  - component: {fileID: 664428410}
   m_Layer: 0
   m_Name: gun child
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &664428409
 Transform:
   m_ObjectHideFlags: 0
@@ -1408,6 +1452,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 550823331}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &664428410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664428408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f925e934b986cae4381189c040a59ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FarmerController
+  moveSpeed: 3
+  movementPlaneY: 0
+  movementCamera: {fileID: 0}
+  gun: {fileID: 0}
+  shootOrigin: {fileID: 0}
+  gunRange: 4
+  shootInterval: 1
+  wolfFleeDuration: 3
+  wolfFleeSpeed: 3.5
 --- !u!65 &664428411
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1610,7 +1675,7 @@ GameObject:
   - component: {fileID: 1014605757}
   m_Layer: 0
   m_Name: Areaexitwolf
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1625,7 +1690,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.19999993, y: 3.17, z: 4.95}
-  m_LocalScale: {x: 15, y: 7.6354866, z: 11.5487995}
+  m_LocalScale: {x: 15, y: 7.6354866, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1809,7 +1874,7 @@ GameObject:
   - component: {fileID: 1094183348}
   m_Layer: 0
   m_Name: spawn
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1823,8 +1888,8 @@ Transform:
   m_GameObject: {fileID: 1094183346}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.2819, y: -0.07, z: 1.9977999}
-  m_LocalScale: {x: 14.2575, y: 0.09505, z: 10.111134}
+  m_LocalPosition: {x: 1.28187, y: -0.07, z: 1.9977999}
+  m_LocalScale: {x: 15, y: 0.1, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 171184489}
@@ -1963,7 +2028,7 @@ Transform:
   m_GameObject: {fileID: 1216416259}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.18, y: -0.173, z: 1.50165}
+  m_LocalPosition: {x: 0.78662, y: -0.173, z: 1.50165}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1983,10 +2048,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SheepSplineSpawner
   sheepPrefab: {fileID: 4316567282764002283, guid: e1f8228121563ec439b39fe346160364, type: 3}
   levelSpline: {fileID: 574594593}
-  spawnPoint: {fileID: 1216416261}
+  spawnPoint: {fileID: 0}
   spawnInterval: 5
   spawnOffset: 0
-  minimumSpawnGap: 1.5
 --- !u!1 &1229094860
 GameObject:
   m_ObjectHideFlags: 0
@@ -2483,13 +2547,6 @@ MonoBehaviour:
   moveSpeed: 3
   movementPlaneY: 0
   movementCamera: {fileID: 0}
-  avoidanceRadius: 0.35
-  avoidanceDistance: 0.15
-  avoidanceStepAngle: 15
-  maxAvoidanceAngle: 75
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
   gun: {fileID: 550823331}
   shootOrigin: {fileID: 664428409}
   gunRange: 4
@@ -2738,13 +2795,35 @@ GameObject:
   - component: {fileID: 1836011379}
   - component: {fileID: 1836011378}
   - component: {fileID: 1836011377}
+  - component: {fileID: 1836011376}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &1836011376
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836011375}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1836011377
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2812,7 +2891,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.20000005, y: -0.671, z: 5.3999996}
-  m_LocalScale: {x: 1.5, y: 1, z: 11}
+  m_LocalScale: {x: 1, y: 1, z: 16.200907}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2831,7 +2910,7 @@ GameObject:
   - component: {fileID: 2133757039}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Terrain
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2924,7 +3003,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.2, y: -0.673, z: 4.95}
-  m_LocalScale: {x: 15, y: 1, z: 10.64115}
+  m_LocalScale: {x: 15, y: 1, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2941,10 +3020,6 @@ PrefabInstance:
       propertyPath: exitArea
       value: 
       objectReference: {fileID: 1014605757}
-    - target: {fileID: 4609872765119671633, guid: 6291d302c06847c4f98d7c270a526c40, type: 3}
-      propertyPath: carrySpeed
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 4752722350720543942, guid: 6291d302c06847c4f98d7c270a526c40, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.66
